@@ -8,7 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Start()
     {
         _inputSystemGun = new InputSystem_Gun();
-        _inputSystemGun.Player.Shoot.performed += Shoot();
+        //_inputSystemGun.Player.Shoot.performed += Shoot();
     }
 
     private void Update()
