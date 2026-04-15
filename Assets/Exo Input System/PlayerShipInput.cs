@@ -7,15 +7,13 @@ public class PlayerShipInput : MonoBehaviour
 
     [SerializeField]
     private float _moveSpeed = 5f;
-
     private float _activeMoveSpeed = 5f;
-
     private Vector2 _moveInput;
-    
+
     [SerializeField]
     private GameObject _bullet;
 
-    private float dashSpeed = 10f;
+    private float _dashSpeed = 10f;
     private float _dashLength = 0.5f;
     private float _dashCooldown = 1f;
     private float _dashCounter;
@@ -28,20 +26,18 @@ public class PlayerShipInput : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(_moveInput * Time.deltaTime * _moveSpeed);
-        
+        transform.Translate(_moveInput * Time.deltaTime * _activeMoveSpeed);
+
         if (_dashCounter > 0)
         {
             _dashCounter -= Time.deltaTime;
-
             if (_dashCounter <= 0)
             {
                 _activeMoveSpeed = _moveSpeed;
                 _dashCoolCounter = _dashCooldown;
             }
         }
-
-        if (_dashCoolCounter > 0) 
+        if (_dashCoolCounter > 0)
         {
             _dashCoolCounter -= Time.deltaTime;
         }
@@ -62,7 +58,6 @@ public class PlayerShipInput : MonoBehaviour
         {
             _moveInput = context.ReadValue<Vector2>();
         }
-
         if (context.canceled)
         {
             _moveInput = Vector2.zero;
@@ -71,11 +66,11 @@ public class PlayerShipInput : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed) 
+        if (context.performed)
         {
-            if (_dashCoolCounter <=0 && _dashCounter <= 0)
+            if (_dashCoolCounter <= 0 && _dashCounter <= 0)
             {
-                _activeMoveSpeed = dashSpeed;
+                _activeMoveSpeed = _dashSpeed;
                 _dashCounter = _dashLength;
             }
         }
